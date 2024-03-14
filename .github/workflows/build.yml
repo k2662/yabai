@@ -10,10 +10,19 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: install zstd
+      run: brew install zstd
+
     - name: build
-      run: make
+      run: make archive
+
+    - name: compress
+      run: tar -cf bin.tar bin
+
+    - name: zstd
+      run: zstd bin.tar
 
     - name: upload build 
       uses: actions/upload-artifact@v4.0.0
       with:
-        path: ./bin
+        path: ./bin.tar.zst
