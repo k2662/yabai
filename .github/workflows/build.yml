@@ -11,7 +11,7 @@ jobs:
     - uses: actions/checkout@v4
 
     - name: install zstd
-      run: brew install zstd
+      run: brew install zstd python
 
     - name: build
       run: make archive
