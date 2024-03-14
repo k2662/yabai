@@ -45,16 +45,13 @@ publish:
 	sed -i '' "60s/^VERSION=.*/VERSION=\"$(shell $(BUILD_PATH)/yabai --version | cut -d "v" -f 2)\"/" $(SCRIPT_PATH)/install.sh
 	sed -i '' "61s/^EXPECTED_HASH=.*/EXPECTED_HASH=\"$(shell shasum -a 256 $(BUILD_PATH)/$(shell $(BUILD_PATH)/yabai --version).tar.gz | cut -d " " -f 1)\"/" $(SCRIPT_PATH)/install.sh
 
-archive: man install sign icon
+archive: man install icon
 	rm -rf $(ARCH_PATH)
 	mkdir -p $(ARCH_PATH)
 	cp -r $(BUILD_PATH) $(ARCH_PATH)/
 	cp -r $(DOC_PATH) $(ARCH_PATH)/
 	cp -r $(SMP_PATH) $(ARCH_PATH)/
 	rm -rf $(ARCH_PATH)
-
-sign:
-	codesign -fs "yabai-cert" $(BUILD_PATH)/yabai
 
 clean-build:
 	rm -rf $(BUILD_PATH)
